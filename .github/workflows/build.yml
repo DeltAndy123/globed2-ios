@@ -40,8 +40,6 @@ jobs:
         uses: RoootTheFox/build-geode-mod@main
         with:
           combine: true
-          cli: "v2.13.1"
-          sdk: 'nightly'
           target: ${{ matrix.config.target }}
           configure-args: '-DGLOBED_RELEASE=ON'
           bindings: hiimjustin000/bindings
@@ -53,7 +51,7 @@ jobs:
     needs: ['build']
 
     steps:
-      - uses: RoootTheFox/build-geode-mod@combine
+      - uses: RoootTheFox/build-geode-mod/combine@main
         id: build
 
       - uses: actions/upload-artifact@v3
