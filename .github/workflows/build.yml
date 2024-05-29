@@ -42,8 +42,7 @@ jobs:
           combine: true
           target: ${{ matrix.config.target }}
           configure-args: '-DGLOBED_RELEASE=ON'
-          bindings: hiimjustin000/bindings
-          bindings-ref: patch-2
+          bindings-ref: ios
 
   package:
     name: Package builds
