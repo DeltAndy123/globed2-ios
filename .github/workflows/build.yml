@@ -14,15 +14,18 @@ jobs:
         config:
         - name: Windows
           os: windows-latest
-          target: Win32
+
         - name: MacOS
           os: macos-latest
+
         - name: iOS
           os: macos-latest
           target: iOS
+
         - name: Android32
           os: ubuntu-latest
           target: Android32
+
         - name: Android64
           os: ubuntu-latest
           target: Android64
@@ -31,7 +34,7 @@ jobs:
     runs-on: ${{ matrix.config.os }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build the mod
         uses: RoootTheFox/build-geode-mod@main
@@ -41,7 +44,8 @@ jobs:
           sdk: 'nightly'
           target: ${{ matrix.config.target }}
           configure-args: '-DGLOBED_RELEASE=ON'
-          # bindings: "dankmeme01/bindings"
+          bindings: hiimjustin000/bindings
+          bindings-ref: patch-2
 
   package:
     name: Package builds
