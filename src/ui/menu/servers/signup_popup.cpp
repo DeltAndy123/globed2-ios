@@ -191,7 +191,11 @@ void GlobedSignupPopup::tryCheckMessageCount() {
     // fetch user's sent messages, if they have 400 (which means they have 50 on page 7, 0-indexed) then they are at the limit and cannot send any more
     auto glm = GameLevelManager::get();
     glm->m_messageListDelegate = this;
-    glm->getUserMessages(true, 7, 50);
+
+    // use function pointer to bypass access control
+    using GetUserMessagesFn = void (GameLevelManager::*)(bool, int, int);
+    auto getUserMsgsFn = reinterpret_cast<GetUserMessagesFn>(&GameLevelManager::getUserMessages);
+    (glm->*getUserMsgsFn)(true, 7, 50);
 }
 
 void GlobedSignupPopup::loadMessagesFinished(cocos2d::CCArray* p0, char const* p1) {
@@ -210,7 +214,10 @@ void GlobedSignupPopup::loadMessagesFinished(cocos2d::CCArray* p0, char const* p
             [](auto, bool open) {
                 if (!open) return;
 
-                MessagesProfilePage::create(true)->show();
+                // use function pointer to bypass access control
+                using CreateFn = MessagesProfilePage* (*)(bool);
+                auto createFn = reinterpret_cast<CreateFn>(&MessagesProfilePage::create);
+                createFn(true)->show();
             }
         );
     } else {
