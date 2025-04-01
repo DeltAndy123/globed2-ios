@@ -36,7 +36,7 @@ jobs:
         uses: geode-sdk/build-geode-mod@main
         with:
           sdk: 'nightly'
-          configure-args: '-DGLOBED_RELEASE=ON'
+          configure-args: '-DGLOBED_RELEASE=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5'
           combine: 'true'
           target: ${{ matrix.config.target }}
 
